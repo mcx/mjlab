@@ -22,3 +22,10 @@ class ViewerConfig:
   origin_type: OriginType = OriginType.WORLD
   asset_name: str | None = None
   body_name: str | None = None
+
+  # Offline renderer settings.
+  enable_reflections: bool = True
+  enable_shadows: bool = True
+  camera: str | int | None = None
+  height: int = 240
+  width: int = 320

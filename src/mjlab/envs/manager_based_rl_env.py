@@ -53,7 +53,7 @@ class ManagerBasedRlEnv(ManagerBasedEnv, gym.Env):
     super().__init__(cfg=cfg, device=device)
     self.render_mode = render_mode
     if self.render_mode == "rgb_array":
-      self.sim.initialize_renderer()
+      self._renderer.initialize()
     self.metadata["render_fps"] = 1.0 / self.step_dt  # type: ignore
 
     print_info("[INFO]: Completed setting up the environment...")
@@ -144,9 +144,9 @@ class ManagerBasedRlEnv(ManagerBasedEnv, gym.Env):
     if self.render_mode == "human" or self.render_mode is None:
       return None
     elif self.render_mode == "rgb_array":
-      self.sim.update_render()
-      self.update_visualizers(self.sim.renderer.scene)
-      return self.sim.render()
+      self._renderer.update(self.sim.data)
+      # self.update_visualizers(self._renderer.renderer.scene)
+      return self._renderer.render()
     else:
       raise NotImplementedError(
         f"Render mode {self.render_mode} is not supported. Please use: {self.metadata['render_modes']}."

@@ -17,6 +17,7 @@ from mjlab.sim import SimulationCfg
 from mjlab.sim.sim import Simulation
 from mjlab.utils import random as random_utils
 from mjlab.utils.logging import print_info
+from mjlab.viewer.offline_renderer import OfflineRenderer
 from mjlab.viewer.viewer_config import ViewerConfig
 
 
@@ -68,6 +69,9 @@ class ManagerBasedEnv:
       cfg=self.cfg.sim,
       model=self.scene.compile(),
       device=device,
+    )
+    self._renderer = OfflineRenderer(
+      model=self.sim.mj_model, data=self.sim.mj_data, cfg=self.cfg.viewer
     )
 
     if "cuda" in self.device:
@@ -164,7 +168,7 @@ class ManagerBasedEnv:
     return self.obs_buf, self.extras
 
   def close(self) -> None:
-    self.sim.close()
+    self._renderer.close()
 
   @staticmethod
   def seed(seed: int = -1) -> int:

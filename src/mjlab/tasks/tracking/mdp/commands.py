@@ -398,7 +398,7 @@ class MotionCommand(CommandTerm):
     self._current_bin_failed.zero_()
 
   def _debug_vis_impl(self, scn: mujoco.MjvScene) -> None:
-    for i in range(self.num_envs):
+    for i in range(min(self.num_envs, 32)):
       entity: Entity = self._env.scene[self.cfg.asset_name]
       indexing = entity.indexing
 

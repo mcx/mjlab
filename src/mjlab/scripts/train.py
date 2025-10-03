@@ -27,7 +27,7 @@ class TrainConfig:
   agent: RslRlOnPolicyRunnerCfg
   registry_name: str | None = None
   device: str = "cuda:0"
-  video: bool = False
+  video: bool = True
   video_length: int = 200
   video_interval: int = 2000
 
