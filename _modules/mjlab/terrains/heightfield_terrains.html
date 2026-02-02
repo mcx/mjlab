@@ -55,7 +55,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Feb 01, 2026"/>
+    <meta name="docbuild:last-update" content="Feb 02, 2026"/>
   </head>
   
   
@@ -518,12 +518,20 @@ document.write(`
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">HfPyramidSlopedTerrainCfg</span><span class="p">(</span><span class="n">SubTerrainCfg</span><span class="p">):</span>
   <span class="n">slope_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Range of slope gradients (rise / run), interpolated by difficulty.&quot;&quot;&quot;</span>
   <span class="n">platform_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Side length of the flat square platform at the terrain center, in meters.&quot;&quot;&quot;</span>
   <span class="n">inverted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;If True, the pyramid is inverted so the platform is at the bottom.&quot;&quot;&quot;</span>
   <span class="n">border_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Width of the flat border around the terrain edges, in meters. Must be &gt;=</span>
+<span class="sd">  horizontal_scale if non-zero.&quot;&quot;&quot;</span>
   <span class="n">horizontal_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Heightfield grid resolution along x and y, in meters per cell.&quot;&quot;&quot;</span>
   <span class="n">vertical_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.005</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Heightfield height resolution, in meters per integer unit of the noise array.&quot;&quot;&quot;</span>
   <span class="n">base_thickness_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Ratio of the heightfield base thickness to its maximum surface height.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="HfPyramidSlopedTerrainCfg.function">
 <a class="viewcode-back" href="../../../source/api/terrains.html#mjlab.terrains.HfPyramidSlopedTerrainCfg.function">[docs]</a>
@@ -685,12 +693,22 @@ document.write(`
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">HfRandomUniformTerrainCfg</span><span class="p">(</span><span class="n">SubTerrainCfg</span><span class="p">):</span>
   <span class="n">noise_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Min and max height noise, in meters.&quot;&quot;&quot;</span>
   <span class="n">noise_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.005</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Height quantization step, in meters. Sampled heights are multiples of this</span>
+<span class="sd">  value within noise_range.&quot;&quot;&quot;</span>
   <span class="n">downsampled_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Spacing between randomly sampled height points before interpolation, in</span>
+<span class="sd">  meters. If None, uses horizontal_scale. Must be &gt;= horizontal_scale.&quot;&quot;&quot;</span>
   <span class="n">horizontal_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Heightfield grid resolution along x and y, in meters per cell.&quot;&quot;&quot;</span>
   <span class="n">vertical_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.005</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Heightfield height resolution, in meters per integer unit of the noise array.&quot;&quot;&quot;</span>
   <span class="n">base_thickness_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Ratio of the heightfield base thickness to its maximum surface height.&quot;&quot;&quot;</span>
   <span class="n">border_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Width of the flat border around the terrain edges, in meters. Must be &gt;=</span>
+<span class="sd">  horizontal_scale if non-zero.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="HfRandomUniformTerrainCfg.function">
 <a class="viewcode-back" href="../../../source/api/terrains.html#mjlab.terrains.HfRandomUniformTerrainCfg.function">[docs]</a>
@@ -836,11 +854,18 @@ document.write(`
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">HfWaveTerrainCfg</span><span class="p">(</span><span class="n">SubTerrainCfg</span><span class="p">):</span>
   <span class="n">amplitude_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Min and max wave amplitude, in meters. Interpolated by difficulty.&quot;&quot;&quot;</span>
   <span class="n">num_waves</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Number of complete wave cycles along the terrain length.&quot;&quot;&quot;</span>
   <span class="n">horizontal_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Heightfield grid resolution along x and y, in meters per cell.&quot;&quot;&quot;</span>
   <span class="n">vertical_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.005</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Heightfield height resolution, in meters per integer unit of the noise array.&quot;&quot;&quot;</span>
   <span class="n">base_thickness_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Ratio of the heightfield base thickness to its maximum surface height.&quot;&quot;&quot;</span>
   <span class="n">border_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Width of the flat border around the terrain edges, in meters. Must be &gt;=</span>
+<span class="sd">  horizontal_scale if non-zero.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="HfWaveTerrainCfg.function">
 <a class="viewcode-back" href="../../../source/api/terrains.html#mjlab.terrains.HfWaveTerrainCfg.function">[docs]</a>
@@ -962,15 +987,34 @@ document.write(`
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">HfDiscreteObstaclesTerrainCfg</span><span class="p">(</span><span class="n">SubTerrainCfg</span><span class="p">):</span>
   <span class="n">obstacle_height_mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;choice&quot;</span><span class="p">,</span> <span class="s2">&quot;fixed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;choice&quot;</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;How obstacle heights are chosen. &quot;choice&quot; randomly picks from [-h, -h/2,</span>
+<span class="sd">  h/2, h] (mix of pits and bumps); &quot;fixed&quot; uses h for all obstacles.&quot;&quot;&quot;</span>
   <span class="n">obstacle_width_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Min and max obstacle width, in meters.&quot;&quot;&quot;</span>
   <span class="n">obstacle_height_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Min and max obstacle height, in meters. Interpolated by difficulty.&quot;&quot;&quot;</span>
   <span class="n">num_obstacles</span><span class="p">:</span> <span class="nb">int</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Number of obstacles to place on the terrain.&quot;&quot;&quot;</span>
   <span class="n">platform_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Side length of the obstacle-free flat square at the terrain center, in meters.&quot;&quot;&quot;</span>
   <span class="n">horizontal_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Heightfield grid resolution along x and y, in meters per cell.&quot;&quot;&quot;</span>
   <span class="n">vertical_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.005</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Heightfield height resolution, in meters per integer unit of the noise array.&quot;&quot;&quot;</span>
   <span class="n">base_thickness_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Ratio of the heightfield base thickness to its maximum surface height.&quot;&quot;&quot;</span>
   <span class="n">border_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Width of the flat border around the terrain edges, in meters. Must be &gt;=</span>
+<span class="sd">  horizontal_scale if non-zero.&quot;&quot;&quot;</span>
   <span class="n">square_obstacles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;If True, obstacles have equal width and length. If False, each dimension</span>
+<span class="sd">  is sampled independently.&quot;&quot;&quot;</span>
+  <span class="n">origin_z_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Vertical offset added to spawn origin height (meters).</span>
+
+<span class="sd">  Useful to prevent robot feet from clipping through terrain when spawning at</span>
+<span class="sd">  the origin.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="HfDiscreteObstaclesTerrainCfg.function">
 <a class="viewcode-back" href="../../../source/api/terrains.html#mjlab.terrains.HfDiscreteObstaclesTerrainCfg.function">[docs]</a>
@@ -1097,7 +1141,8 @@ document.write(`
       <span class="n">material</span><span class="o">=</span><span class="n">material_name</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="n">spawn_height</span> <span class="o">=</span> <span class="n">max_physical_height</span> <span class="o">+</span> <span class="n">hfield_z_offset</span>
+    <span class="c1"># The cleared platform (noise=0) is at z=0 due to the offset logic.</span>
+    <span class="n">spawn_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin_z_offset</span>
     <span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">spawn_height</span><span class="p">])</span>
 
     <span class="n">flat_patches</span> <span class="o">=</span> <span class="n">_compute_flat_patches</span><span class="p">(</span>
@@ -1160,7 +1205,7 @@ By The mjlab Developers
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Feb 01, 2026.
+  Last updated on Feb 02, 2026.
   <br/>
 </p>
   </div>
