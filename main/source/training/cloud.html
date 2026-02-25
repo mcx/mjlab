@@ -492,11 +492,11 @@ it finishes.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">train.yaml</span></code></p></td>
-<td><p>Builds and runs inside the project Dockerfile.</p></td>
+<td><p>Installs mjlab directly with uv.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">train-no-docker.yaml</span></code></p></td>
-<td><p>Installs mjlab directly with uv. Faster to iterate on since it
-skips the Docker build.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">train-docker.yaml</span></code></p></td>
+<td><p>Pulls the pre-built Docker image from GHCR for a reproducible
+environment.</p></td>
 </tr>
 </tbody>
 </table>
@@ -534,11 +534,11 @@ mount this file onto the remote instance via <code class="docutils literal notra
 <section id="quick-start">
 <h2>Quick start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
 <p>From the repo root:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># With Docker (mirrors the production Dockerfile).</span>
-sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train.yaml<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--env<span class="w"> </span><span class="nv">TASK</span><span class="o">=</span>Mjlab-Velocity-Flat-Unitree-G1
-<span class="c1"># Without Docker (faster setup, installs mjlab directly).</span>
-sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train-no-docker.yaml<span class="w"> </span><span class="se">\</span>
+
+<span class="c1"># Or with Docker:</span>
+sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train-docker.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--env<span class="w"> </span><span class="nv">TASK</span><span class="o">=</span>Mjlab-Velocity-Flat-Unitree-G1
 </pre></div>
 </div>
@@ -546,7 +546,7 @@ sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train-no-
 <ol class="arabic simple">
 <li><p>SkyPilot finds an available Lambda instance with the requested GPU.</p></li>
 <li><p>It provisions the instance and uploads your local code via rsync.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">setup</span></code> step runs (Docker build or uv install).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">setup</span></code> step runs (uv install or Docker pull).</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> step runs (training).</p></li>
 <li><p>After 5 minutes of idle time the instance is terminated automatically.</p></li>
 </ol>
@@ -581,14 +581,14 @@ When requesting more than one GPU, consider scaling
 <p><strong>Override training parameters</strong></p>
 <p>Every variable in the YAML <code class="docutils literal notranslate"><span class="pre">envs</span></code> block can be overridden from the
 command line with <code class="docutils literal notranslate"><span class="pre">--env</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train-no-docker.yaml<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--env<span class="w"> </span><span class="nv">TASK</span><span class="o">=</span>Mjlab-Velocity-Flat-Unitree-Go1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--env<span class="w"> </span><span class="nv">NUM_ENVS</span><span class="o">=</span><span class="m">8192</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--env<span class="w"> </span><span class="nv">MAX_ITERATIONS</span><span class="o">=</span><span class="m">10000</span>
 </pre></div>
 </div>
 <p><strong>Run your own task</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train-no-docker.yaml<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--env<span class="w"> </span><span class="nv">TASK</span><span class="o">=</span>Mjlab-Velocity-Flat-Unitree-Go1
 </pre></div>
 </div>
@@ -679,7 +679,7 @@ add <code class="docutils literal notranslate"><span class="pre">--retry-until-u
 opens up.</p>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sky<span class="w"> </span>down<span class="w"> </span>sky-&lt;cluster-name&gt;
-sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train-no-docker.yaml<span class="w"> </span>--retry-until-up
+sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train.yaml<span class="w"> </span>--retry-until-up
 </pre></div>
 </div>
 </section>
@@ -687,7 +687,7 @@ sky<span class="w"> </span>launch<span class="w"> </span>scripts/cloud/train-no-
 <h2>Iterating on a failed job<a class="headerlink" href="#iterating-on-a-failed-job" title="Link to this heading">#</a></h2>
 <p>When a job fails the cluster keeps running (and billing). You can fix
 the problem locally and resubmit without waiting for a new instance:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sky<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sky-&lt;cluster-name&gt;<span class="w"> </span>scripts/cloud/train-no-docker.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sky<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sky-&lt;cluster-name&gt;<span class="w"> </span>scripts/cloud/train.yaml
 </pre></div>
 </div>
 <div class="admonition important">
